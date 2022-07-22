@@ -1,4 +1,3 @@
-
 // ============================================
 // Database
 const mongoose = require("mongoose");
@@ -27,7 +26,7 @@ AdminBro.registerAdapter(AdminBroMongoose)
 // config
 const adminBroOptions = new AdminBro({
 	resources: [Project],
-  rootPath:'/admin'
+  rootPath: '/admin'
 })
 const router = AdminBroExpress.buildRouter(adminBroOptions)
 
@@ -43,7 +42,12 @@ server
 // =============================================
 // Run App
 const run = async () => {
-  await server.listen(5500, () => console.log("Server started"));
+  await mongoose.connect("mongodb://127.0.0.1/adminbroapp", {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+  });
+
+  await server.listen(8282, () => console.log("Server started"));
 }
 
 run()
