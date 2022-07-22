@@ -7,9 +7,11 @@ const ProjectSchema = new mongoose.Schema({
     type:String,
     required: true,
   },
-  description: String,
-  completed: Boolean,
-  created_at: { type: Date, default: Date.now },
+  fabricante: String,
+  categoria: String,
+  quantidade: Number,
+  valor: Number,
+  
 });
 
 const Project = mongoose.model("Project", ProjectSchema);
@@ -25,9 +27,25 @@ AdminBro.registerAdapter(AdminBroMongoose)
 
 // config
 const adminBroOptions = new AdminBro({
-	resources: [Project],
+	resources: [
+    { resource: Project, options: {
+      properties: {
+        
+      },
+   }},
+  ],
+  locale: {
+    translations: {
+      labels: {
+        Project: 'Lista de Produtos'
+      }
+    }
+  },
   rootPath: '/admin'
 })
+
+
+
 const router = AdminBroExpress.buildRouter(adminBroOptions)
 
 
